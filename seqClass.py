@@ -2,10 +2,12 @@
 import sys, re
 from argparse import ArgumentParser
 
+#define argyments
 parser = ArgumentParser(description = 'Classify a sequence as DNA or RNA')
 parser.add_argument("-s", "--seq", type = str, required = True, help = "Input sequence")
 parser.add_argument("-m", "--motif", type = str, required = False, help = "Motif")
 
+#print help if no arguments added
 if len(sys.argv) == 1:
     parser.print_help()
     sys.exit(1)
@@ -13,6 +15,8 @@ if len(sys.argv) == 1:
 args = parser.parse_args()
 
 args.seq = args.seq.upper()       #added to change upper case
+
+#search motif
 
 if re.search('--motif', ' '.join(sys.argv)):
     motif = args.motif.upper()
@@ -22,6 +26,7 @@ if re.search('--motif', ' '.join(sys.argv)):
     else:
         print("NOT FOUND")
 
+#classify sequence
 if re.search('^[ACGTU]+$', args.seq):
     if re.search('T', args.seq):
         print ('The sequence is DNA')
@@ -31,3 +36,4 @@ if re.search('^[ACGTU]+$', args.seq):
         print ('The sequence can be DNA or RNA')
 else:
     print ('error, check input sequence')
+
